@@ -1,0 +1,60 @@
+<html>
+<head>
+	<script>
+		function calculate()
+		{
+			var mytable = document.getElementById("mybody");
+			 var row = mytable.insertRow(0);
+
+			 var x = row.insertCell(0);
+             var y = row.insertCell(1);
+             var z = row.insertCell(2);
+             var t = row.insertCell(3);
+             
+
+
+
+
+			var pro= document.getElementById("product").value;
+			var qty= document.getElementById("quantity").value;
+			var pri= document.getElementById("price").value;
+			var total = pri * qty;
+
+			 x.innerHTML= pro;
+			 y.innerHTML = qty;
+			 z.innerHTML = pri;
+			 t.innerHTML = total;
+
+			// document.getElementById("product1").innerHTML=pro;
+			// document.getElementById("quantity1").innerHTML=qty;
+			// document.getElementById("price1").innerHTML=pri;
+			
+			// document.getElementById("ttl").innerHTML= t;
+
+		}
+	</script>
+</head>
+<body>
+
+	<input type="text"  id="product" placeholder="Product Name">
+	<input type="text"  id="quantity" placeholder="Quantity">
+	<input type="text"  id="price" placeholder="Price">
+	<table id="mytable">
+		<tr>
+			<th>Product Name</th>
+			<th>Quantity</th>
+			<th>Price</th>
+			<th>Total Price</th>
+		</tr>
+		<tbody id="mybody">
+		<tr id="shop">
+			<td id=""></td>
+			<td id=""></td>
+			<td id=""></td>
+			<td id=""></td>
+		</tr>
+	</tbody>
+	</table>
+	<button type="button" onclick="calculate()">click</button>
+</body>
+</html>

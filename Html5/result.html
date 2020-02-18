@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script>
+		function fetch()
+		{
+           var fetch=document.URL;
+           
+           var x=fetch.split("?");
+           var y=x[1];
+           var z= y.split("&");
+
+           document.getElementById("p").innerHTML=z[0];
+           document.getElementById("q").innerHTML=z[1];
+           document.getElementById("pr").innerHTML=z[2];
+		}
+	</script>
+</head>
+<body>
+	<button  onclick="fetch()">show data</button> 
+	<table id="mytable">
+		<tr>
+			<th>Product Name</th>
+			<th>Quantity</th>
+			<th>Price</th>
+			<th>Total Price</th>
+		</tr>
+		<tr id="shop">
+			<td id="p"></td>
+			<td id="q"></td>
+			<td id="pr"></td>
+			<td id="ttl"></td>
+		</tr>
+	</tbody>
+	</table>
+</body>
