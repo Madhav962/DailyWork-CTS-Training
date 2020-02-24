@@ -1,0 +1,558 @@
+enum in Java:
+============
+Enumerations serve the purpose of representing a group of named constants in a programming language. For example the 4 suits in a deck of playing cards may be 4 enumerators named Club, Diamond, Heart, and Spade, belonging to an enumerated type named Suit. Other examples include natural enumerated types (like the planets, days of the week, colors, directions, etc.).
+Enums are used when we know all possible values at compile time, such as choices on a menu, rounding modes, command line flags, etc. It is not necessary that the set of constants in an enum type stay fixed for all time.
+
+In Java (from 1.5), enums are represented using enum data type. Java enums are more powerful than C/C++ enums . In Java, we can also add variables, methods and constructors to it. The main objective of enum is to define our own data types(Enumerated Data Types).
+
+
+Declaration of enum in java :
+  
+  ## Enum declaration can be done outside a Class or inside a Class but not inside a Method.
+  
+  enum Color
+  {
+    RED, GREEN, BLUE;
+  }
+public class Test
+{
+   
+    public static void main(String[] args)
+    {
+        Color c1 = Color.RED;
+        System.out.println(c1);
+    }
+}
+
+---------------------
+// enum declaration inside a class.
+public class Test
+{
+    enum Color
+    {
+        RED, GREEN, BLUE;
+    }
+    public static void main(String[] args)
+    {
+        Color c1 = Color.RED;
+        System.out.println(c1);
+    }
+}
+
+## First line inside enum should be list of constants and then other things like methods, variables and constructor.
+## According to Java naming conventions, it is recommended that we name constant with all capital letters
+
+Important points of enum :
+=========================
+$ Every enum internally implemented by using Class.
+/* internally above enum Color is converted to
+class Color
+{
+     public static final Color RED = new Color();
+     public static final Color BLUE = new Color();
+     public static final Color GREEN = new Color();
+}*/
+
+$ Every enum constant represents an object of type enum.
+$ enum type can be passed as an argument to switch statement.
+   import java.util.Scanner;
+ 
+// An Enum class
+enum Day
+{
+    SUNDAY, MONDAY, TUESDAY, WEDNESDAY,
+    THURSDAY, FRIDAY, SATURDAY;
+}
+ 
+// Driver class that contains an object of "day" and
+// main().
+public class Test
+{
+    Day day;
+ 
+    // Constructor
+    public Test(Day day)
+    {
+        this.day = day;
+    }
+ 
+    // Prints a line about Day using switch
+    public void dayIsLike()
+    {
+        switch (day)
+        {
+        case MONDAY:
+            System.out.println("Mondays are bad.");
+            break;
+        case FRIDAY:
+            System.out.println("Fridays are better.");
+            break;
+        case SATURDAY:
+        case SUNDAY:
+            System.out.println("Weekends are best.");
+            break;
+        default:
+            System.out.println("Midweek days are so-so.");
+            break;
+        }
+    }
+ 
+    // Driver method
+    public static void main(String[] args)
+    {
+        String str = "MONDAY";
+        Test t1 = new Test(Day.valueOf(str));
+        t1.dayIsLike();
+    }
+}
+
+$ Every enum constant is always implicitly public static final. Since it is static, we can access it by using enum Name. Since it is final, we can’t create child enums.
+
+$ We can declare main() method inside enum. Hence we can invoke enum directly from the Command Prompt.
+  enum Color
+  {
+    RED, GREEN, BLUE;
+    public static void main(String[] args)
+    {
+        Color c1 = Color.RED;
+        System.out.println(c1);
+    }
+  }
+
+  
+Enum and Inheritance :
+  $ All enums implicitly extend java.lang.Enum class. As a class can only extend one parent in Java, so an enum cannot extend anything else.
+  $ toString() method is overridden in java.lang.Enum class,which returns enum constant name.
+  $ enum can implement many interfaces.
+
+values(), ordinal() and valueOf() methods :
+--------------------------------------------
+
+ 1. These methods are present inside java.lang.Enum.
+ 2. values() method can be used to return all values present inside enum.
+ 3. Order is important in enums.By using ordinal() method, each enum constant
+   index can be found, just like array index.
+ 4. valueOf() method returns the enum constant of the specified string value, if exists.
+// Java program to demonstrate working of values(),
+// ordinal() and valueOf()
+enum Color
+{
+    RED, GREEN, BLUE;
+}
+ 
+public class Test
+{
+    public static void main(String[] args)
+    {
+        // Calling values()
+        Color arr[] = Color.values();
+ 
+        // enum with loop
+        for (Color col : arr)
+        {
+            // Calling ordinal() to find index
+            // of color.
+            System.out.println(col + " at index "
+                             + col.ordinal());
+        }
+ 
+        // Using valueOf(). Returns an object of
+        // Color with given constant.
+        // Uncommenting second line causes exception
+        // IllegalArgumentException
+        System.out.println(Color.valueOf("RED"));
+        // System.out.println(Color.valueOf("WHITE"));
+    }
+}
+
+--------------------------------------------------------------------------------------------
+Serialization :
+=============
+
+Serialization & Deserialization
+
+Data Stream: 
+	Data Stream is used to perform binary IO operations for all the primitive data types in Java. We can perform I/O operations in an efficient and convenient way for Boolean, char, byte, short, int, long, float, double,  and Strings, etc. by using data stream. It also allows us to read-write Java primitive data types instead of raw bytes.
+Object Stream: 
+	the state of a JAVA object can be converted into a byte stream that can be stored into a database, file, or transported to any known location like from web tier to app tier as data value object in client-server RMI applications. This process of writing the object state into a byte stream is known as Serialization.
+	
+	Eventually, we can use this byte stream to retrieve the stored values and restore the object’s old state. This process of restoring the object’s old state is known as Deserialization.
+	
+	Serialization:
+	   Object -->Stream of bytes--> 1. File , 2. Database , 3. Memory etc
+	   
+	Deserialization:
+	  File , Database , Memory -->Stream Of Bytes -->Object
+	  
+MARKER INTERFACE:
+    An interface in Java without any field and method is a Marker interface. It is used to inform compiler that the class implementing it has some special behavior or meaning. Some of the Marker interfaces are-
+	1. java.io.Serializable
+	2. java.rmi.Remote
+	3. java.util.RandomAccess
+	4. java.lang.Cloneable
+	
+	## Although since Java 5 marker interfaces are replaced by annotations and they serve the same purpose as marker interfaces did before but for serializability we still use the interfaces and the transient keyword.
+
+	
+Data and Object stream Interfaces:
+	The following are the data and object stream interfaces which every Object Stream class implements. Object Stream class implements either of the two interfaces.
+
+	1. ObjectInput: It is the sub interface of DataInput
+	2. ObjectOutput: It is the sub interface of DataOutput
+	
+Object Stream Classes:
+    
+	ObjectInputStream: 
+	    1. This Java class is responsible for deserializing the previously serialized objects and the primitive data.
+	    2. It reads the object from the graph of objects stored while using FileInputStream.
+		3. Method readObject() is the main method used to deserialize the object.The class of the object, the signature of the class, and the values of the non-transient and non-static fields of the class and all of its super types are read.
+		   public final Object readObject() throws IOException , 
+     	   ClassNotFoundException
+	ObjectOutputStream:
+        1. This Java class is used to store primitives and a graph of Java object which are available to ObjectInputStream to read data from.
+		2. This does not care about saving the super class and sub class data but it could be achieved by using the writeObject method or by using the methods for primitive data types supported by DataOutput.
+		3. Method writeObject() is a main method of this Java class which
+    	   serializes the object directly.
+           public final void writeObject(Object obj) throws IOException	
+		   
+Transient keyword:
+    There are scenarios in which we want to store only a part of the object i.e. we want to omit some specific fields from the stored object just like password field from any user class or an Employee or you can think of any other sensitive information.
+
+	In these cases we mark these fields as transient and this keyword protects the field from being saved during the process of serialization.
+
+	Example – transient private String password; 
+	
+Example:
+User.java:
+import java.io.Serializable; 
+public class User implements Serializable {
+ 
+    /**
+     * Generated Serial version Id
+     */
+    private static final long serialVersionUID = -55857686305273843L;
+ 
+    private String name;
+    private String username;
+    transient private String password;
+ 
+    @Override
+    public String toString() {
+        
+        String value = "name : " + name + "\nUserName : " + username
+                + "\nPassword : " + password;
+        return value;
+    }
+ 
+    /**
+     * Setters and getters methods.
+     */
+ 
+    public String getName() {
+        return name;
+    }
+ 
+    public void setName(String name) {
+        this.name = name;
+    }
+ 
+    public String getUsername() {
+        return username;
+    }
+ 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+ 
+    public String getPassword() {
+        return password;
+    }
+ 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+} 
+
+1. Make sure that the Java class you need to store must implement Serializable interface.
+2. Notice that password field in the above class is made transient because it is a sensitive information and we don’t want to store it or you can chose any other field.
+3. Also there is another field named serialVersionUID which is a Long variable and it should be defined for all the Java classes because if it is not and if in future we need to perform any changes in the class like variables, methods etc then we would never be able to deserialize an already serialized object. 
+
+SerializationUtil.java
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+ 
+/*
+  This class is a utility class for performing the serialization and
+  deserialization operations provided the required information.
+ */
+public class SerializationUtil {
+ 
+    /**
+     * deserialize to Object from given file. We use the general Object so as that it can work for any Java Class.
+     */
+    public static Object deserialize(String fileName) throws IOException,
+            ClassNotFoundException {
+        FileInputStream fis = new FileInputStream(fileName);
+        BufferedInputStream bis = new BufferedInputStream(fis);
+        ObjectInputStream ois = new ObjectInputStream(bis);
+        Object obj = ois.readObject();
+        ois.close();
+        return obj;
+    }
+ 
+    /**
+     * serialize the given object and save it to given file
+     */
+    public static void serialize(Object obj, String fileName)
+            throws IOException {
+        FileOutputStream fos = new FileOutputStream(fileName);
+        BufferedOutputStream bos = new BufferedOutputStream(fos);
+        ObjectOutputStream oos = new ObjectOutputStream(bos);
+        oos.writeObject(obj);
+        oos.close();
+    }
+} 
+
+File Streams(For file related operations) which are wrapped in
+Buffered Streams(for Speeding up the operations) which are finally wrapped into Object Streams(for serialization and deserialization operations).	
+
+SerializationTest.java
+
+import java.io.IOException;
+ 
+public class SerializationTest {
+ 
+    public static void main(String[] args) {
+        User user = new User();
+        user.setName("Pankaj");
+        user.setUsername("Pankaj.Saini");
+        user.setPassword("pankaj");
+ 
+        try {
+            /**
+             *  Serializing the object
+             */
+            SerializationUtil.serialize(user, "serialization.txt");
+ 
+            /**
+             * Deserializing the object
+             */
+            User newUser = (User) SerializationUtil.deserialize("serialization.txt");
+            System.out.println(newUser.toString());
+ 
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}
+-----------------------------------------------------------------------------------------
+Watch Service API:
+
+Java 7 adds a new feature for its NIO package called Watch Service API which allows applications monitoring directories and files for change events such as creation, deletion and modification. The Watch Service API is fairly simple to use, and relieves programmers from using third party libraries for files change monitoring. In this article, we’ll see how to use this API in the simplest form with a simple demo program. All interfaces and classes in the Watch Service API can be found in the package java.nio.file.
+First, create a new WatchService object like this:
+
+WatchService watcher = FileSystems.getDefault().newWatchService();
+
+Then register this WatchService for a given directory like the following:
+
+Path dir = Paths.get("Path/To/Watched/Directory");
+dir.register(watcher, StandardWatchEventKinds.ENTRY_CREATE,StandardWatchEventKinds.ENTRY_DELETE,StandardWatchEventKinds.ENTRY_MODIFY);
+
+The register() method of the Path class takes a WatchService object and a varargs list of event types which the application needs to get notified. The supported event types are:
+
+ENTRY_CREATE: indicates that a directory or file is created.
+ENTRY_DELETE: indicates that a directory or file is deleted.
+ENTRY_MODIFY: indicates that a directory or file is modified.
+OVERFLOW: indicates that the event might have been lost or discarded. This event is always implicitly registered so we don’t need to explicitly specify it in the register() method.
+All these event types are declared in the java.nio.file.StandardWatchEventKinds class.
+
+Next, write an infinite loop to repeatedly poll the events fired by the watcher and process the events accordingly. For example:
+
+while (true) {
+    WatchKey key;
+    try {
+        // wait for a key to be available
+        key = watcher.take();
+    } catch (InterruptedException ex) {
+        return;
+    }
+ 
+    for (WatchEvent<?> event : key.pollEvents()) {
+        // get event type
+        WatchEvent.Kind<?> kind = event.kind();
+ 
+        // get file name
+        @SuppressWarnings("unchecked")
+        WatchEvent<Path> ev = (WatchEvent<Path>) event;
+        Path fileName = ev.context();
+ 
+        System.out.println(kind.name() + ": " + fileName);
+ 
+        if (kind == OVERFLOW) {
+            continue;
+        } else if (kind == ENTRY_CREATE) {
+ 
+            // process create event
+ 
+        } else if (kind == ENTRY_DELETE) {
+ 
+            // process delete event
+ 
+        } else if (kind == ENTRY_MODIFY) {
+ 
+            // process modify event
+ 
+        }
+    }
+ 
+    // IMPORTANT: The key must be reset after processed
+    boolean valid = key.reset();
+    if (!valid) {
+        break;
+    }
+}
+
+NOTES: It’s very important that the key must be reset after the events have been processed. If not, the key won’t receive further events. If the reset() method returns false, the directory is inaccessible (might be deleted), so the loop exits.
+
+Example::
+
+public class WatchServiceExample {
+
+	public static void main(String[] args) throws IOException {
+		
+		WatchService watcher=FileSystems.getDefault().newWatchService();
+		Path dir = Paths.get("C:\\Users\\Administrator\\Desktop\\Core_Java");
+		WatchKey key= dir.register(watcher,StandardWatchEventKinds.ENTRY_CREATE,StandardWatchEventKinds.ENTRY_DELETE,StandardWatchEventKinds.ENTRY_MODIFY);
+		
+		while (true) {
+		   
+		    try {
+		        // wait for a key to be available
+		        key = watcher.take();
+		    } catch (InterruptedException ex) {
+		        return;
+		    }
+		    for (WatchEvent<?> event : key.pollEvents()) {
+                WatchEvent.Kind<?> kind = event.kind();
+                 
+                @SuppressWarnings("unchecked")
+                WatchEvent<Path> ev = (WatchEvent<Path>) event;
+                Path fileName = ev.context();
+                 
+                System.out.println(kind.name() + ": " + fileName);
+                 
+                if (kind == StandardWatchEventKinds.ENTRY_MODIFY &&
+                        fileName.toString().equals("DirectoryWatchDemo.java")) {
+                    System.out.println("My source file has changed!!!");
+                }
+            }
+             
+            boolean valid = key.reset();
+            if (!valid) {
+                break;
+            }
+        }
+         
+    }
+}
+...
+
+---------------------------------------------------------------------------
+Generics in Java:
+
+Generics was added in Java 5 to provide compile-time type checking and removing risk of ClassCastException that was common while working with collection classes. The entire collection framework was re-written to use generics for type-safety.
+
+List list = new ArrayList();
+list.add("abc");
+list.add(5); //OK
+
+for(Object obj : list){
+	//type casting leading to ClassCastException at runtime
+    String str=(String) obj; 
+}
+
+Example Using Generics:
+
+List<String> list1 = new ArrayList<>(); 
+list1.add("abc");
+//list1.add(5); //compiler error
+
+for(String str : list){
+     //no type casting needed, avoids ClassCastException
+	 String name=str;
+}
+
+Java Generic Class:
+-------------------
+
+We can define our own classes with generics type. A generic type is a class or interface that is parameterized over types. We use angle brackets (<>) to specify the type parameter.
+
+Simple class Example:
+
+public class WithoutGenerics {
+
+	private Object t;
+
+	public Object get() {
+		return t;
+	}
+
+	public void set(Object t) {
+		this.t = t;
+	}
+
+        public static void main(String args[]){
+		WithoutGenerics type = new WithoutGenerics();
+		type.set("Pankaj"); 
+		String str = (String) type.get(); //type casting, error prone and can cause ClassCastException
+	}
+}
+Notice:  while using this class, we have to use type casting and it can produce ClassCastException at runtime. Now we will use java generic class to rewrite the same class as shown below.
+
+
+
+public class GenericsType<T> {
+
+	private T t;
+	
+	public T get(){
+		return this.t;
+	}
+	
+	public void set(T t1){
+		this.t=t1;
+	}
+	
+	public static void main(String args[]){
+		GenericsType<String> type = new GenericsType<>();
+		type.set("Pankaj"); //valid
+		String n = type.get();
+		GenericsType type1 = new GenericsType(); //raw type
+		type1.set("Pankaj"); //valid
+		type1.set(10); //valid and autoboxing support
+		GenericsType<Integer> type = new GenericsType<>();
+	}
+}
+
+Java Generic Interface:
+Comparable interface is an example of Generis interface.
+import java.util.*;
+
+public interface Comparable<T> {
+    public int compareTo(T o);
+}
+
+Java Generic Type:
+
+E – Element (used extensively by the Java Collections Framework, for example ArrayList, Set etc.)
+K – Key (Used in Map)
+N – Number
+T – Type
+V – Value (Used in Map)
+
