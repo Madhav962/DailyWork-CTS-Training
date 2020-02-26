@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="element.css">
+</head>
+<body>
+    <h3 ><b>Calculator</b></h3>
+   
+    <table>
+        <tr><th colspan="5"><input type="text" id="result"></th></tr>
+        <tr>
+            <td><input type="button" value="1" onclick=" value1('1')"></td>
+            <td><input type="button" value="2" onclick=" value1('2')"></td>
+            <td><input type="button" value="3" onclick=" value1('3')"></td>
+            <td><input type="button" value="+" onclick=" value1('+')"></td>
+            <td><input type="button" value="/" onclick=" value1('/')"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="4" onclick=" value1('4')"></td>
+            <td><input type="button" value="5" onclick=" value1('5')"></td>
+            <td><input type="button" value="6" onclick=" value1('6')"></td>
+            <td><input type="button" value="-" onclick=" value1('-')"></td>
+            <td><input type="button" value="%" onclick=" value1('%')"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="7" onclick=" value1('7')"></td>
+            <td><input type="button" value="8" onclick=" value1('8')"></td>
+            <td><input type="button" value="9" onclick=" value1('9')"></td>
+            <td><input type="button" value="0" onclick=" value1('0')"></td>
+            <td><input type="button" value="*" onclick=" value1('*')"></td>
+        </tr>
+        <tr><td  colspan="5"><input type="button"  value="=" style=width:300px  onclick="calculation()"></td></tr>
+        <tr><td  colspan="5"><input type="button"  value="clear" style=width:300px  onclick="clear()"></td></tr>
+    </table>    
+    <script>
+       function value1(val)
+        {
+ document.getElementById("result").value+=val;
+        }
+        function calculation()
+        {
+            let x = document.getElementById("result").value; 
+             let y = eval(x) ;
+             document.getElementById("result").value = y ;
+        }
+        function clear()
+        {
+            document.getElementById("result").value="";
+        }
+    </script>
+    
+</body>
+</html>
