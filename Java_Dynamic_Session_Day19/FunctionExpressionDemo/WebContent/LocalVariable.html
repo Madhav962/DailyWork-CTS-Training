@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Local Variable</title>
+<script type="text/javascript">
+function a() {
+	var marks=90;
+	console.log("hello from a()");
+	return marks;
+}
+function b() {
+	var obmarks=a();
+	console.log("hello from b()");
+	console.log(obmarks);
+	
+}
+b();
+
+</script>
+</head>
+<body>
+
+</body>
+</html>
