@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Login</title>
+</head>
+<body>
+	<form name="lf" action="welcome.html" onsubmit="return validate()">
+		<input type="text" name="userName" placeholder="Enter username" /><br>
+		<input type="password" name="password" placeholder="Enter password" /><br>
+		<input type="Submit" value="Submit" />
+	</form>
+
+</body>
+<script type="text/javascript">
+	function sayHello() {
+		document.write("<h1> Hello Good Afternoon</h1>");
+		document.write("Today date is" + new Date() + "</h1>")
+	}
+	function validate() {
+		var name = document.lf.userName.value.trim();
+		var password = document.lf.password.value.trim();
+		if (name == "") {
+			alert("UserName should not be empty");
+			return false;
+
+		}
+		if (password == "") {
+			alert("Password should not be empty");
+			return false;
+		}
+
+	}
+</script>
+</html>
